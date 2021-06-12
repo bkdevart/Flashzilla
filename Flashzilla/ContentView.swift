@@ -5,20 +5,16 @@
 //  Created by Brandon Knox on 6/11/21.
 //
 
-import CoreHaptics
 import SwiftUI
 
 struct ContentView: View {
+    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    
     var body: some View {
-        VStack {
-            Text("Hello")
-            Spacer().frame(height: 100)
-            Text("World")
-        }
-        .contentShape(Rectangle())
-        .onTapGesture {
-            print("VStack tapped!")
-        }
+        Text("Hello, World!")
+            .onReceive(timer) { time in
+                print("The time is now \(time)")
+            }
     }
 }
 
