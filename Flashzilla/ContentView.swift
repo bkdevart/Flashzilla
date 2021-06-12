@@ -16,17 +16,14 @@ func withOptionalAnimation<Result>(_ animation: Animation? = .default, _ body: (
 }
 
 struct ContentView: View {
-    @Environment(\.accessibilityReduceMotion) var reduceMotion
-    @State private var scale: CGFloat = 1
+    @Environment(\.accessibilityReduceTransparency) var reduceTransparency
     
     var body: some View {
         Text("Hello, World!")
-            .scaleEffect(scale)
-            .onTapGesture {
-                withOptionalAnimation {
-                    self.scale *= 1.5
-                }
-            }
+            .padding()
+            .background(reduceTransparency ? Color.black : Color.black.opacity(0.5))
+            .foregroundColor(Color.white)
+            .clipShape(Circle())
     }
 }
 
