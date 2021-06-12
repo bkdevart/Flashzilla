@@ -15,6 +15,7 @@ struct ContentView: View {
             Spacer().frame(height: 100)
             Text("World")
         }
+        .contentShape(Rectangle())
         .onTapGesture {
             print("VStack tapped!")
         }
