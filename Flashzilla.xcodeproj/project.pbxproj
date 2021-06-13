@@ -46,7 +46,6 @@
 		CA47F4EF2674344B007C9A6F = {
 			isa = PBXGroup;
 			children = (
-				CA47F51426768EF7007C9A6F /* CardView.swift */,
 				CA47F4FA2674344B007C9A6F /* Flashzilla */,
 				CA47F4F92674344B007C9A6F /* Products */,
 			);
@@ -64,6 +63,7 @@
 			isa = PBXGroup;
 			children = (
 				CA47F4FB2674344B007C9A6F /* AppDelegate.swift */,
+				CA47F51426768EF7007C9A6F /* CardView.swift */,
 				CA47F4FD2674344B007C9A6F /* SceneDelegate.swift */,
 				CA47F4FF2674344B007C9A6F /* ContentView.swift */,
 				CA47F51226768E1C007C9A6F /* Card.swift */,
