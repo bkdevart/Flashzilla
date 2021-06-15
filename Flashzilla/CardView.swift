@@ -56,6 +56,7 @@ struct CardView: View {
             DragGesture()
                 .onChanged { gesture in
                     self.offset = gesture.translation
+                    self.feedback.prepare()
                 }
                 .onEnded { _ in
                     if abs(self.offset.width) > 100 {
