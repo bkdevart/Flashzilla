@@ -17,6 +17,7 @@
 		CA47F51326768E1C007C9A6F /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA47F51226768E1C007C9A6F /* Card.swift */; };
 		CA47F51526768EF7007C9A6F /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA47F51426768EF7007C9A6F /* CardView.swift */; };
 		CAE23A15267931E400CCB9EB /* EditCards.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE23A14267931E400CCB9EB /* EditCards.swift */; };
+		CAE23A17267A882B00CCB9EB /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE23A16267A882B00CCB9EB /* SettingsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		CA47F51226768E1C007C9A6F /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		CA47F51426768EF7007C9A6F /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		CAE23A14267931E400CCB9EB /* EditCards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCards.swift; sourceTree = "<group>"; };
+		CAE23A16267A882B00CCB9EB /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +70,7 @@
 				CA47F51426768EF7007C9A6F /* CardView.swift */,
 				CA47F4FD2674344B007C9A6F /* SceneDelegate.swift */,
 				CA47F4FF2674344B007C9A6F /* ContentView.swift */,
+				CAE23A16267A882B00CCB9EB /* SettingsView.swift */,
 				CA47F51226768E1C007C9A6F /* Card.swift */,
 				CAE23A14267931E400CCB9EB /* EditCards.swift */,
 				CA47F5042674344C007C9A6F /* Assets.xcassets */,
@@ -158,6 +161,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CA47F4FC2674344B007C9A6F /* AppDelegate.swift in Sources */,
+				CAE23A17267A882B00CCB9EB /* SettingsView.swift in Sources */,
 				CA47F5032674344B007C9A6F /* Flashzilla.xcdatamodeld in Sources */,
 				CA47F51326768E1C007C9A6F /* Card.swift in Sources */,
 				CAE23A15267931E400CCB9EB /* EditCards.swift in Sources */,

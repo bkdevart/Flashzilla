@@ -18,7 +18,7 @@ extension View {
 struct ContentView: View {
     @Environment(\.accessibilityDifferentiateWithoutColor) var differentiateWithoutColor
     @Environment(\.accessibilityEnabled) var accessibilityEnabled
-    @State private var cards = [Card]()
+    @State private var cards = [Card]()  // needs to be published?
     
     @State private var isActive = true
     @State private var timeRemaining = 100
@@ -27,6 +27,10 @@ struct ContentView: View {
     @State private var showingEditScreen = false
     
     @State private var engine: CHHapticEngine?
+    
+    @State private var showingSettingsScreen = false
+    @State var addMissedCards = false
+    @State var answerWrong = false
     
     var body: some View {
         ZStack {
@@ -48,9 +52,14 @@ struct ContentView: View {
                     )
                 ZStack {
                     ForEach(0..<cards.count, id: \.self) { index in
-                        CardView(card: self.cards[index]) {
+                        CardView(card: self.cards[index], answerWrong: $answerWrong) {
                             withAnimation {
-                                self.removeCard(at: index)
+                                if (addMissedCards && answerWrong) {
+                                    self.addCardToBottom(at: index)
+                                } else {
+                                    self.removeCard(at: index)
+                                }
+                                print("Cards remaining: \(cards.count)")
                             }
                         }
                         .stacked(at: index, in: self.cards.count)
@@ -71,6 +80,15 @@ struct ContentView: View {
             
             VStack {
                 HStack {
+                    Button(action: {
+                        self.showingSettingsScreen = true
+                    }) {
+                        Image(systemName: "gear")
+                            .padding()
+                            .background(Color.black.opacity(0.7))
+                            .clipShape(Circle())
+                    }
+                    
                     Spacer()
                     
                     Button(action: {
@@ -133,7 +151,6 @@ struct ContentView: View {
             if self.timeRemaining > 0 {
                 self.timeRemaining -= 1
             } else {
-                // Make something interesting for when the timer runs out. At the very least make some text appear, but you should also try designing a custom haptic using Core Haptics.
                 prepareHaptics()
                 complexSuccess()
             }
@@ -148,7 +165,30 @@ struct ContentView: View {
         .sheet(isPresented: $showingEditScreen, onDismiss: resetCards) {
             EditCards()
         }
+        .sheet(isPresented: $showingSettingsScreen) {
+            SettingsView(addMissedCards: $addMissedCards)
+        }
         .onAppear(perform: resetCards)
+    }
+    
+    func addCardToBottom(at index: Int) {
+        // remove and add?
+        guard index >= 0 else { return }
+        // remove when combined with append causes issues
+        print("Before removal: \(cards)")
+        let card = cards.remove(at: index)
+        print("After removal: \(cards)")
+//         append causes issue - will not be able to interact with stack after
+//        self.cards.insert(card, at: 0)
+//        self.cards.append(card)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        self.cards.insert(card, at: 0)
+                    }
+        print("After append: \(cards)")
+        
+        if cards.isEmpty {
+            isActive = false
+        }
     }
     
     func removeCard(at index: Int) {

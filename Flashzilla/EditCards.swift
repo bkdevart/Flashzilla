@@ -9,7 +9,7 @@ import SwiftUI
 
 struct EditCards: View {
     @Environment(\.presentationMode) var presentationMode
-    @State private var cards = [Card]()
+    @State private var cards = [Card]()  // turn into observable?
     @State private var newPrompt = ""
     @State private var newAnswer = ""
     

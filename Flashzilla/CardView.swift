@@ -11,7 +11,9 @@ struct CardView: View {
     @Environment(\.accessibilityDifferentiateWithoutColor) var differentiateWithoutColor
     @Environment(\.accessibilityEnabled) var accessibilityEnabled
     
-    let card: Card
+    var card: Card
+    @Binding var answerWrong: Bool
+    
     var removal: (() -> Void)? = nil
     
     @State private var isShowingAnswer = false
@@ -70,10 +72,14 @@ struct CardView: View {
                     if abs(self.offset.width) > 100 {
                         if self.offset.width > 0 {
                             self.feedback.notificationOccurred(.success)
+                            print("Right answer")
+                            answerWrong = false
                         } else {
                             self.feedback.notificationOccurred(.error)
+                            print("Wrong answer")
+                            answerWrong = true
                         }
-                        
+                        // decide how to modify this for addMissedCards
                         self.removal?()
                     } else {
                         self.offset = .zero
@@ -85,10 +91,15 @@ struct CardView: View {
         }
         .animation(.spring())
     }
+    
+//    init(card: Card, answerWrong: Bool) {
+//        self.card = card
+//        self.answerWrong = answerWrong
+//    }
 }
 
-struct CardView_Previews: PreviewProvider {
-    static var previews: some View {
-        CardView(card: Card.example)
-    }
-}
+//struct CardView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        CardView(card: Card.example)
+//    }
+//}
