@@ -12,7 +12,6 @@ struct SettingsView: View {
     @Binding var addMissedCards: Bool
     
     var body: some View {
-        // Add a settings screen that has a single option: when you get an answer one wrong that card goes back into the array so the user can try it again.
         NavigationView {
             Section {
                 List {

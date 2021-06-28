@@ -7,6 +7,21 @@
 
 import SwiftUI
 
+struct CardColor: ViewModifier {
+    @Environment(\.accessibilityDifferentiateWithoutColor) var differentiateWithoutColor
+    @Binding var offset: CGSize
+    
+    func body(content: Content) -> some View {
+            content
+                .background(
+                    differentiateWithoutColor
+                    ? nil
+                        : RoundedRectangle(cornerRadius: 25, style: .continuous)
+                            .fill(offset.width >= 0 ? Color.green : Color.red)
+                )
+        }
+}
+
 struct CardView: View {
     @Environment(\.accessibilityDifferentiateWithoutColor) var differentiateWithoutColor
     @Environment(\.accessibilityEnabled) var accessibilityEnabled
@@ -29,13 +44,9 @@ struct CardView: View {
                         : Color.white
                             .opacity(1 - Double(abs(offset.width / 50)))
                 )
-                .background(
-                    differentiateWithoutColor
-                    ? nil
-                        : RoundedRectangle(cornerRadius: 25, style: .continuous)
-                            .fill(offset.width > 0 ? Color.green : Color.red)
-                )
+                .modifier(CardColor(offset: $offset))
                 .shadow(radius: 10)
+            // If you drag a card to the right but not far enough to remove it, then release, you see it turn red as it slides back to the center. Why does this happen and how can you fix it? (Tip: use a custom modifier for this to avoid cluttering your body property.)
             
             VStack {
                 if accessibilityEnabled {
@@ -67,6 +78,7 @@ struct CardView: View {
                 .onChanged { gesture in
                     self.offset = gesture.translation
                     self.feedback.prepare()
+                    print(self.offset)
                 }
                 .onEnded { _ in
                     if abs(self.offset.width) > 100 {
@@ -79,7 +91,6 @@ struct CardView: View {
                             print("Wrong answer")
                             answerWrong = true
                         }
-                        // decide how to modify this for addMissedCards
                         self.removal?()
                     } else {
                         self.offset = .zero
@@ -91,11 +102,6 @@ struct CardView: View {
         }
         .animation(.spring())
     }
-    
-//    init(card: Card, answerWrong: Bool) {
-//        self.card = card
-//        self.answerWrong = answerWrong
-//    }
 }
 
 //struct CardView_Previews: PreviewProvider {

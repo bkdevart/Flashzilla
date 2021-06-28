@@ -18,7 +18,7 @@ extension View {
 struct ContentView: View {
     @Environment(\.accessibilityDifferentiateWithoutColor) var differentiateWithoutColor
     @Environment(\.accessibilityEnabled) var accessibilityEnabled
-    @State private var cards = [Card]()  // needs to be published?
+    @State private var cards = [Card]()
     
     @State private var isActive = true
     @State private var timeRemaining = 100
@@ -174,13 +174,9 @@ struct ContentView: View {
     func addCardToBottom(at index: Int) {
         // remove and add?
         guard index >= 0 else { return }
-        // remove when combined with append causes issues
         print("Before removal: \(cards)")
         let card = cards.remove(at: index)
         print("After removal: \(cards)")
-//         append causes issue - will not be able to interact with stack after
-//        self.cards.insert(card, at: 0)
-//        self.cards.append(card)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                         self.cards.insert(card, at: 0)
                     }
